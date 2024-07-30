@@ -5,25 +5,33 @@ import {
   Menu as MenuIcon,
   Add as AddIcon,
   LightMode as LightModeIcon,
+  DarkMode as DarkModeIcon,
 } from "@mui/icons-material";
 
 function Header() {
-  const { showForm, setShowForm } = useApp();
+  const { showForm, setShowForm, setMode, mode, setShowDrawer } = useApp();
   return (
     <AppBar position="static">
       <Toolbar>
-        <IconButton color="inherit" edge="start">
+        <IconButton color="inherit" edge="start" onClick={() => setShowDrawer(true) }>
           <MenuIcon />
         </IconButton>
         <Typography sx={{ flexGrow: 1, ml: 2 }}>Yaycha</Typography>
         <Box>
+          <IconButton color="inherit" onClick={() => setShowForm(!showForm)}>
+            <AddIcon />
+          </IconButton>
+
           <IconButton
             color="inherit"
-            onClick={() => setShowForm(!showForm)}
-          ><AddIcon /></IconButton>
-
-          <IconButton color="inherit" edge="end">
-            <LightModeIcon />
+            edge="end"
+            onClick={() => setMode(mode === "dark" ? "light" : "dark")}
+          >
+            {mode === "dark" ? (
+              <LightModeIcon />
+            ) : (
+              <DarkModeIcon onClick={() => setMode("dark")} />
+            )}
           </IconButton>
         </Box>
       </Toolbar>
