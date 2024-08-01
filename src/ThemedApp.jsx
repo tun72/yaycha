@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import { deepPurple, grey } from "@mui/material/colors";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import Template from "./Template";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -11,8 +12,11 @@ import Register from "./pages/Register";
 import Comments from "./pages/Comments";
 import Profile from "./pages/Profile";
 import Likes from "./pages/Likes";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 export const AppContext = createContext();
+
+export const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
@@ -83,7 +87,9 @@ function ThemedApp() {
           setGlobalMsg,
         }}
       >
-        <RouterProvider router={router} />
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
       </AppContext.Provider>
     </ThemeProvider>
   );
